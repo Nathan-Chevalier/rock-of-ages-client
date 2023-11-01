@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useEffect } from "react";
 
 export const RockList = ({ rocks, fetchRocks }) => {
   useEffect(() => {
     fetchRocks();
-  }, [fetchRocks]);
+  }, []);
 
   const displayRocks = () => {
     if (rocks && rocks.length) {
@@ -13,10 +14,10 @@ export const RockList = ({ rocks, fetchRocks }) => {
           className="flex flex-col border p-5 border-solid hover:bg-fuchsia-500 hover:text-violet-50 rounded-md border-violet-900 mt-5 bg-slate-50"
         >
           <div className="">
-            {rock.name} ({rock.type.label}) weighs {rock.weight}kg.
+            {rock.name} ({rock.type?.label}) weighs {rock.weight}kg.
           </div>
           <div>
-            In the collection of {rock.user.first_name} {rock.user.last_name}
+            In the collection of {rock.user?.first_name} {rock.user?.last_name}
           </div>
         </div>
       ));
