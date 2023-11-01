@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 
-export const RockList = ({ rocks, fetchRocks }) => {
+export const RockList = ({ rocks, fetchRocks, showAll }) => {
   useEffect(() => {
-    fetchRocks();
-  }, []);
+    fetchRocks(showAll);
+  }, [showAll]);
 
   const displayRocks = () => {
     if (rocks && rocks.length) {
