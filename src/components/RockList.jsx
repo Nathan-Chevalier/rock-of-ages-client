@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useEffect } from "react";
 
-export const RockList = ({ rocks, fetchRocks }) => {
+export const RockList = ({ rocks, fetchRocks, showAll }) => {
   useEffect(() => {
-    fetchRocks();
-  }, []);
+    fetchRocks(showAll);
+  }, [showAll]);
 
   const displayRocks = () => {
     if (rocks && rocks.length) {
@@ -19,6 +19,34 @@ export const RockList = ({ rocks, fetchRocks }) => {
           <div>
             In the collection of {rock.user?.first_name} {rock.user?.last_name}
           </div>
+          {showAll ? ( 
+            ""
+          ) : (
+            <div>
+              <button
+                className="btn-delete"
+                onClick={async () => {
+                  const response = await fetch(
+                    `http://localhost:8000/rocks/${rock.id}`,
+                    {
+                      method: "DELETE",
+                      headers: {
+                        Authorization: `Token ${
+                          JSON.parse(localStorage.getItem("rock_token")).token
+                        }`,
+                      },
+                    }
+                  );
+
+                  if (response.status === 204) {
+                    fetchRocks(showAll);
+                  }
+                }}
+              >
+                DELETE
+              </button>
+            </div>
+          )}
         </div>
       ));
     }
